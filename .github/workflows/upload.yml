@@ -1,0 +1,17 @@
+name: List S3 Contents - Multi OS
+
+on:
+  push
+jobs:
+  listS3:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [wubuntu-18.04]
+    steps:
+      - uses: chrislennon/action-aws-cli@v1.1
+      # All commands after this point have access to the AWS CLI
+      - run: aws s3 sync . s3://ambiance.michel.dance --exclude ".git/*"
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.    }}
